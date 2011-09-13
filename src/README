@@ -1,0 +1,18 @@
+-When you start the "bibliotheca" application, you will see the main menu:
+
+Welcome to The Bangalore Public Library System - Bibliotheca !
+PLEASE TYPE THE INDEX OF THE OPTION IN THE MENU :
+1. View all books
+2. Reserve a book
+3. Check library number
+
+-Then you type number below + Enter, you will see different information looks like:
+
+...
+(You can type 'exit' to quit or any other words to continue...)
+
+-Then if type "exit", you'll close the application; otherwise, go back to the main menu.
+
+-Others are as the same with requirement.
+
+

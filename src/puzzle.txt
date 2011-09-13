@@ -1,0 +1,16 @@
+Need to improve:
+----------------------
+
+1. the index used in setting reserved_state of book and setting input of reserve_Book are different. It is misleading.
+(in test methods : "shouldReturnThanksReservedBooksSuccessfully" & "shouldReturnSorryReservedBooksUnsuccessfully")
+
+2 the process for "menu" and "books"
+    It should be encapsulated better. The "size()" of them are exposed in test.
+    the initialization of them is not good.
+
+Puzzles:
+------------------------
+
+1. How to write the test for main?
+1. How to give methods good names?
+1. How to refactor the methods:"selectMenuOptions" & "reserveBook"?

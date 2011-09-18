@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -5,13 +6,11 @@ import java.io.PrintStream;
 import java.util.Vector;
 
 public class Bibliotheca {
-    Vector<String> menu = new Vector<String>();
+//    Vector<String> menu = new Vector<String>();
+    Menu menu = new Menu();
     Vector<Book> books = new Vector<Book>();
 
     Bibliotheca(){
-        menu.add("View all books");
-        menu.add("Reserve a book");
-        menu.add("Check library number");
 
         books.add(new Book("Agile Samurai"));
         books.add(new Book("Head First Java"));
@@ -28,21 +27,24 @@ public class Bibliotheca {
 
     public void showMenuOptions(PrintStream output) throws IOException {
         for(int index = 0; index < menu.size(); index++)
-            output.println((index+1) +". " + menu.elementAt(index));
+            output.println((index+1) +". " + menu.optionAt(index));
     }
 
     public void selectMenuOptions(BufferedReader input, PrintStream output) throws IOException {
             try{
                 int selectedMenuOption = Integer.parseInt(input.readLine());
                 if(selectedMenuOption > 0 && selectedMenuOption <= menu.size()){
-                    if (menu.elementAt(selectedMenuOption-1) == "Check library number")
+                    if (menu.optionAt(selectedMenuOption-1) == "Check library number")
 
                         output.println("Please talk to Librarian. Thank you.");
-                    if (menu.elementAt(selectedMenuOption-1) == "View all books"){
+                    if (menu.optionAt(selectedMenuOption-1) == "View all books"){
                         showBooks(output);
                     }
-                    if (menu.elementAt(selectedMenuOption-1) == "Reserve a book"){
+                    if (menu.optionAt(selectedMenuOption-1) == "Reserve a book"){
                         selectReserveBook(input, output);
+                    }
+                    if (menu.optionAt(selectedMenuOption-1) == "View all movies"){
+                        showMoives(output);
                     }
                 }
                 else
@@ -82,6 +84,12 @@ public class Bibliotheca {
     public void showBooks(PrintStream output){
         for(int index = 0; index < books.size(); index++)
             output.println((index + 1) + ". " + books.elementAt(index).getName());
+    }
+
+
+    private void showMoives(PrintStream output) {
+        output.println("movie");
+
     }
 
     public static void main(String[] args) throws IOException {

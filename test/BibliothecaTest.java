@@ -1,7 +1,11 @@
 import org.junit.Before;
 import org.junit.Test;
+import resource.Book;
+import resource.Movie;
+import resource.Resource;
 
 import java.io.*;
+import java.util.Vector;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
@@ -13,12 +17,17 @@ public class BibliothecaTest {
     PrintStream output;
     Bibliotheca bibliotheca;
     BufferedReader input;
+    Vector<Resource> bookLib;
+    Vector<Resource> movieLib;
+
     @Before
     public void initialize(){
         consoleOutput = new ByteArrayOutputStream();
         output = new PrintStream(consoleOutput);
 
         bibliotheca = new Bibliotheca();
+        bookLib = bibliotheca.resourceHolder.bookLib;
+        movieLib = bibliotheca.resourceHolder.movieLib;
     }
 
     @Test
@@ -57,33 +66,34 @@ public class BibliothecaTest {
     @Test
     public void shouldReturnBooksSelectedViewingBooks()throws IOException{
         selectMenuOption("View all books");
-        assertThat(consoleOutput.toString(), is(expectBooks()));
+        assertThat(consoleOutput.toString(), is(bibliotheca.resourceHolder.expectResource(bookLib)));
     }
 
     @Test
     public void shouldReturnBooksListSelectedReservedBooks()throws IOException{
         selectMenuOption("Reserve a book");
-        assertThat(consoleOutput.toString(), is("Please choose the index of the book you want:\n" + expectBooks()));
+        assertThat(consoleOutput.toString(), is("Please choose the index of the book you want:\n" + bibliotheca.resourceHolder.expectResource(bookLib)));
     }
     @Test
     public void shouldReturnMoviesListSelectedViewAllMovies() throws IOException {
         selectMenuOption("View all movies");
-        assertThat(consoleOutput.toString(), is("movie\n"));
+        assertThat(consoleOutput.toString(), is("Index Name - director - rating:\n" + bibliotheca.resourceHolder.expectResource(movieLib)));
     }
 
     @Test
     public void shouldReturnThanksReservedBooksSuccessfully() throws IOException {
-        bibliotheca.books.elementAt(1).setReserved(false);
+        Book book = (Book)bookLib.elementAt(1);
+        book.setReserved(false);
         input = new BufferedReader(new StringReader("2"));
         bibliotheca.reserveBook(input, output);
 
         assertThat(consoleOutput.toString(), is("Thank You! Enjoy the book.\n"));
-        assertEquals(true, bibliotheca.books.elementAt(1).isReserved());
+        assertEquals(true, book.isReserved());
     }
 
     @Test
     public void shouldReturnSorryReservedBooksUnsuccessfully() throws IOException {
-        bibliotheca.books.elementAt(2).setReserved(true);
+        ((Book)bookLib.elementAt(2)).setReserved(true);
         input = new BufferedReader(new StringReader("3"));
         bibliotheca.reserveBook(input, output);
 
@@ -91,21 +101,21 @@ public class BibliothecaTest {
     }
 
     public void selectMenuOption(String optionName) throws IOException {
-        input = new BufferedReader(new StringReader(String.valueOf(bibliotheca.menu.indexOf(optionName)+1)));
+        input = new BufferedReader(new StringReader(String.valueOf(bibliotheca.menu.indexOf(optionName))));
         bibliotheca.selectMenuOptions(input, output);
-    }
-
-    public String expectBooks(){
-        String expectBooks = "";
-        for(int index = 0; index < bibliotheca.books.size(); index++)
-            expectBooks +=(index+1) + ". " +  bibliotheca.books.elementAt(index).getName() + "\n";
-        return expectBooks;
     }
 
     public String expectMenu(){
         String expectBooks = "";
-        for(int index = 0; index < bibliotheca.menu.size(); index++)
-            expectBooks +=(index+1) + ". " +  bibliotheca.menu.optionAt(index) + "\n";
+        for(int index = 1; index <= bibliotheca.menu.size(); index++)
+            expectBooks +=(index) + ". " +  bibliotheca.menu.optionAt(index) + "\n";
         return expectBooks;
     }
+//
+//    public String expectMoives(){
+//        String expectMoives = "";
+//        for(int index = 1; index <= bibliotheca.resourceHolder.amount(movieLib);index++)
+//            expectMoives +=(index) + ". " + bibliotheca.resourceHolder.elementAt(movieLib, index).getInfo() + "\n";
+//        return expectMoives;
+//    }
 }

@@ -17,12 +17,12 @@ public class MenuTest {
 
     @Test
     public void testIndexOf(){
-        assertEquals(0,menu.indexOf("View all books"));
+        assertEquals(1,menu.indexOf("View all books"));
     }
 
     @Test
     public void testOptionAt(){
-        assertEquals("View all books", menu.optionAt(0));
+        assertEquals("View all books", menu.optionAt(1));
     }
 
     @Test
@@ -31,7 +31,7 @@ public class MenuTest {
         menu.addOption("The new option");
 
         assertEquals(oldSize+1, menu.size());
-        assertEquals("The new option", menu.optionAt(menu.size()-1));
+        assertEquals("The new option", menu.optionAt(menu.size()));
 
     }
 }

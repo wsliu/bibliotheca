@@ -1,14 +1,7 @@
 import java.util.Vector;
 
-/**
- * Created by IntelliJ IDEA.
- * User: twer
- * Date: 9/18/11
- * Time: 9:58 AM
- * To change this template use File | Settings | File Templates.
- */
 public class Menu {
-    Vector<String> menuOptions = new Vector<String>();;
+    Vector<String> menuOptions = new Vector<String>();
     public Menu() {
         addOption("View all books");
         addOption("Reserve a book");
@@ -24,10 +17,10 @@ public class Menu {
     }
 
     public String optionAt(int index) {
-        return menuOptions.elementAt(index);
+        return menuOptions.elementAt(index - 1);
     }
 
     public int indexOf(String optionName) {
-        return menuOptions.indexOf(optionName);
+        return menuOptions.indexOf(optionName) + 1;
     }
 }

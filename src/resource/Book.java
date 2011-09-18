@@ -1,4 +1,6 @@
-public class Book {
+package resource;
+
+public class Book extends Resource{
     String name;
     private boolean reserved;
 
@@ -11,13 +13,8 @@ public class Book {
         return reserved;
     }
 
-    public String getName() {
-
+    public String getInfo(){
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public void setReserved(boolean reserved) {

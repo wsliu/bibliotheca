@@ -1,3 +1,5 @@
+import authentication.User;
+import authentication.UserHolder;
 import resource.Book;
 import resource.Resource;
 import resource.ResourceHolder;
@@ -12,6 +14,7 @@ import java.util.Vector;
 public class Bibliotheca {
     Menu menu = new Menu();
     ResourceHolder resourceHolder = new ResourceHolder();
+    UserHolder userHolder = new UserHolder();
 
     public Bibliotheca(){
 
@@ -27,7 +30,7 @@ public class Bibliotheca {
 
     public void showMenuOptions(PrintStream output) throws IOException {
         for(int index = 1; index <= menu.size(); index++)
-            output.println((index) +". " + menu.optionAt(index));
+            output.println((index) + ". " + menu.optionAt(index));
     }
 
     public void selectMenuOptions(BufferedReader input, PrintStream output) throws IOException {
@@ -35,8 +38,7 @@ public class Bibliotheca {
                 int selectedMenuOption = Integer.parseInt(input.readLine());
                 if(selectedMenuOption > 0 && selectedMenuOption <= menu.size()){
                     if (menu.optionAt(selectedMenuOption) == "Check library number")
-
-                        output.println("Please talk to Librarian. Thank you.");
+                        selectCheckLibraryNumber(output);
                     if (menu.optionAt(selectedMenuOption) == "View all books"){
                         output.print(resourceHolder.expectResource(resourceHolder.bookLib));
                     }
@@ -47,6 +49,9 @@ public class Bibliotheca {
                         output.println("Index Name - director - rating:");
                         output.print(resourceHolder.expectResource(resourceHolder.movieLib));
                     }
+                    if (menu.optionAt(selectedMenuOption) =="Login"){
+                        selsectLogin(input, output);
+                    }
                 }
                 else
                     output.println("Select a valid option!!");
@@ -56,11 +61,25 @@ public class Bibliotheca {
             }
     }
 
+    private void selectCheckLibraryNumber(PrintStream output) {
+        User currentUser = userHolder.currentUser;
+        if(currentUser!= null && currentUser.isLogined()){
+            output.println(userHolder.currentUser.getLibraryNumber());
+        }
+        else
+        output.println("Please talk to Librarian. Thank you.");
+
+    }
+
     private void selectReserveBook(BufferedReader input, PrintStream output) throws IOException {
             output.println("Please choose the index of the book you want:");
             output.print(resourceHolder.expectResource(resourceHolder.bookLib));
             reserveBook(input, output);
 
+    }
+
+    public void selsectLogin(BufferedReader input, PrintStream output) throws IOException {
+        userHolder.login(input, output);
     }
 
     public void reserveBook(BufferedReader input, PrintStream output) throws IOException {

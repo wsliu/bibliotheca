@@ -12,7 +12,7 @@ public class MenuTest {
 
     @Test
     public void testSize(){
-        assertEquals(4, menu.size());
+        assertEquals(5, menu.size());
     }
 
     @Test

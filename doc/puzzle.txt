@@ -1,3 +1,5 @@
+Week1
+===================================================
 Need to improve:
 ----------------------
 
@@ -12,5 +14,13 @@ Puzzles:
 ------------------------
 
 1. How to write the test for main?
-1. How to give methods good names?
-1. How to refactor the methods:"selectMenuOptions" & "reserveBook"?
+2. How to give methods good names?
+3. How to refactor the methods:"selectMenuOptions" & "reserveBook"?
+
+
+Week1
+===================================================
+
+Puzzles:
+------------------------
+1. Package

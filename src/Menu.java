@@ -7,6 +7,7 @@ public class Menu {
         addOption("Reserve a book");
         addOption("Check library number");
         addOption("View all movies");
+        addOption("Login");
     }
     public void addOption(String optionName){
         menuOptions.add(optionName);
